@@ -1,0 +1,2 @@
+- To see what your current shell is you can call **echo**.
+- You can go back to previous commands by using the up and down arrow keys.
