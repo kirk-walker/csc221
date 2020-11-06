@@ -1,0 +1,149 @@
+In [110]: import csv
+
+In [111]: exampleFile = open('example.csv')
+
+In [112]: exampleReader = csv.reader(exampleFile)
+
+In [113]: exampleData = list(exampleReader)
+
+In [114]: exampleData
+Out[114]:
+[['4/5/2014 13:34', 'Apples', '73'],
+ ['4/5/2014 3:41', 'Cherries', '85'],
+ ['4/6/2014 12:46', 'Pears', '14'],
+ ['4/8/2014 8:59', 'Oranges', '52'],
+ ['4/10/2014 2:07', 'Apples', '152'],
+ ['4/10/2014 18:10', 'Bananas', '23'],
+ ['4/10/2014 2:40', 'Strawberries', '98']]
+
+In [115]: exampleData[0][0]
+Out[115]: '4/5/2014 13:34'
+
+In [116]: exampleData[0][1]
+Out[116]: 'Apples'
+
+In [117]: exampleData[0][2]
+Out[117]: '73'
+
+In [118]: exampleData[1][1]
+Out[118]: 'Cherries'
+
+In [119]: exampleData[6][1]
+Out[119]: 'Strawberries'
+
+In [122]: import csv
+
+In [123]: exampleFile = open('example.csv')
+
+In [124]: exampleReader = csv.reader(exampleFile)
+
+In [125]: for row in exampleReader:^M
+     ...:         print('Row #' + str(exampleReader.line_num) + ' ' + str(row))
+     ...:
+Row #1 ['4/5/2014 13:34', 'Apples', '73']
+Row #2 ['4/5/2014 3:41', 'Cherries', '85']
+Row #3 ['4/6/2014 12:46', 'Pears', '14']
+Row #4 ['4/8/2014 8:59', 'Oranges', '52']
+Row #5 ['4/10/2014 2:07', 'Apples', '152']
+Row #6 ['4/10/2014 18:10', 'Bananas', '23']
+Row #7 ['4/10/2014 2:40', 'Strawberries', '98']
+
+In [126]: outputFile = open('output.csv', 'w', newline='')
+
+In [127]: outputWriter = csv.writer(outputFile)
+
+In [128]: outputWriter.writerow(['spam', 'eggs', 'bacon', 'ham'])
+Out[128]: 21
+
+In [129]: outputWriter.writerow(['Hello, world!', 'eggs', 'bacon', 'ham'])
+Out[129]: 32
+
+In [130]: outputWriter.writerow([1, 2, 3.141592, 4])
+Out[130]: 16
+
+In [131]: outputFile.close()
+
+In [132]: csvFile = open('example.tsv', 'w', newline='')
+
+In [133]: csvWriter = csv.writer(csvFile, delimiter='\t', lineterminator='\n\n')
+
+In [134]: csvWriter.writerow(['apples', 'oranges', 'grapes'])
+Out[134]: 23
+
+In [135]: csvWriter.writerow(['eggs', 'bacon', 'ham'])
+Out[135]: 16
+
+In [136]: csvWriter.writerow(['spam', 'spam', 'spam', 'spam', 'spam', 'spam'])
+Out[136]: 31
+
+In [137]: csvFile.close()
+
+In [139]: exampleFile = open('example.csv')
+
+In [140]: exampleDictReader = csv.DictReader(exampleFile, ['time', 'name',^M
+     ...: 'amount'])
+
+In [141]: for row in exampleDictReader:^M
+     ...: ...     print(row['time'], row['name'], row['amount'])
+     ...:
+4/5/2014 13:34 Apples 73
+4/5/2014 3:41 Cherries 85
+4/6/2014 12:46 Pears 14
+4/8/2014 8:59 Oranges 52
+4/10/2014 2:07 Apples 152
+4/10/2014 18:10 Bananas 23
+4/10/2014 2:40 Strawberries 98
+
+In [142]: outputFile = open('output.csv', 'w', newline='')
+
+In [143]: outputDictWriter = csv.DictWriter(outputFile, ['Name', 'Pet', 'Phone'])
+
+In [144]: outputDictWriter.writeheader()
+
+In [148]: outputDictWriter.writerow({'Name': 'Alice', 'Pet': 'cat', 'Phone': '555-1234
+     ...: '})
+Out[148]: 20
+
+In [149]: outputDictWriter.writerow({'Name': 'Bob', 'Phone': '555-9999'})
+Out[149]: 15
+
+In [150]: outputDictWriter.writerow({'Phone': '555-5555', 'Name': 'Carol', 'Pet':'dog'
+     ...: })
+Out[150]: 20
+
+In [151]: outputFile.close()
+
+In [153]: stringOfJsonData = '{"name": "Zophie", "isCat": true, "miceCaught": 0,"felin
+     ...: eIQ": null}'
+
+In [154]: import json
+
+In [155]: jsonDataAsPythonValue = json.loads(stringOfJsonData)
+
+In [156]: jsonDataAsPythonValue
+Out[156]: {'name': 'Zophie', 'isCat': True, 'miceCaught': 0, 'felineIQ': None}
+
+In [157]: pythonValue = {'isCat': True, 'miceCaught': 0, 'name': 'Zophie','felineIQ':
+     ...: None}
+
+In [158]: import json
+
+In [159]: stringOfJsonData = json.dumps(pythonValue)
+
+In [160]: stringOfJsonData
+Out[160]: '{"isCat": true, "miceCaught": 0, "name": "Zophie", "felineIQ": null}'
+
+In [162]: exampleFile = open('exampleWithHeader.csv')
+
+In [163]: exampleDictReader = csv.DictReader(exampleFile)
+
+In [164]: for row in exampleDictReader:^M
+     ...: ...     print(row['Timestamp'], row['Fruit'], row['Quantity'])
+     ...:
+4/5/2014 13:34 Apples 73
+4/5/2014 3:41 Cherries 85
+4/6/2014 12:46 Pears 14
+4/8/2014 8:59 Oranges 52
+4/10/2014 2:07 Apples 152
+4/10/2014 18:10 Bananas 23
+4/10/2014 2:40 Strawberries 98

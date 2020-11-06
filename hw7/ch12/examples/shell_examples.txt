@@ -1,0 +1,121 @@
+IN: import webbrowser
+IN: webbrowser.open('https://inventwithpython.com/'))
+
+IN: import requests
+IN: res = requests.get('https://automatetheboringstuff.com/files/rj.txt')
+IN: type(res)
+OUT:  <class 'requests.models.Response'>
+IN: res.status_code == requests.codes.ok
+OUT: True
+IN: len(res.text)
+OUT: 178981
+IN: print(res.text[:250])
+OUT: The Project Gutenberg EBook of Romeo and Juliet, by William Shakespeare
+
+IN: res = requests.get('https://inventwithpython.com/page_that_does_not_exist')
+IN: res.raise_for_status()
+OUT: Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+
+  File "C:\Users\Al\AppData\Local\Programs\Python\Python37\lib\site-packages\requests\models
+.py", line 940, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://inventwithpython
+.com/page_that_does_not_exist.html
+
+IN: import requests
+IN: res = requests.get('https://automatetheboringstuff.com/files/rj.txt')
+IN: res.raise_for_status()
+IN: playFile = open('RomeoAndJuliet.txt', 'wb')
+IN: for chunk in res.iter_content(100000):
+    playFile.write(chunk)
+
+OUT: 100000
+     78981
+IN: playFile.close()
+
+IN: import requests, bs4
+IN: res = requests.get('https://nostarch.com')
+IN: res.raise_for_status()
+IN: noStarchSoup = bs4.BeautifulSoup(res.text, 'html.parser')
+IN: type(noStarchSoup)
+OUT: <class 'bs4.BeautifulSoup'>
+
+IN: exampleFile = open('example.html')
+IN: exampleSoup = bs4.BeautifulSoup(exampleFile, 'html.parser')
+IN: type(exampleSoup)
+OUT: <class 'bs4.BeautifulSoup'>
+
+IN: import bs4
+IN: exampleFile = open('example.html')
+IN: exampleSoup = bs4.BeautifulSoup(exampleFile.read(), 'html.parser')
+IN: elems = exampleSoup.select('#author')
+IN: type(elems) # elems is a list of Tag objects.
+OUT: <class 'list'>
+IN: len(elems)
+OUT: 1
+IN:  type(elems[0])
+OUT: <class 'bs4.element.Tag'>
+IN: str(elems[0]) # The Tag object as a string.
+OUT: '<span id="author">Al Sweigart</span>'
+IN: elems[0].getText()
+OUT: 'Al Sweigart'
+IN: elems[0].attrs
+OUT: {'id': 'author'}
+
+IN: pElems = exampleSoup.select('p')
+IN: str(pElems[0])
+OUT: '<p>Download my <strong>Python</strong> book from <a href="https://
+     inventwithpython.com">my website</a>.</p>'
+IN: pElems[0].getText()
+OUT: 'Download my Python book from my website.'
+IN: str(pElems[1])
+OUT: '<p class="slogan">Learn Python the easy way!</p>'
+IN: pElems[1].getText()
+OUT: 'Learn Python the easy way!'
+IN: str(pElems[2])
+OUT: '<p>By <span id="author">Al Sweigart</span></p>'
+IN: pElems[2].getText()
+OUT: 'By Al Sweigart'
+
+IN: import bs4
+IN: soup = bs4.BeautifulSoup(open('example.html'), 'html.parser')
+IN: spanElem = soup.select('span')[0]
+IN: str(spanElem)
+OUT: '<span id="author">Al Sweigart</span>'
+IN: spanElem.get('id')
+OUT: 'author'
+IN: spanElem.get('some_nonexistent_addr') == None
+OUT: True
+IN: spanElem.attrs
+OUT: {'id': 'author'}
+
+IN: from selenium import webdriver
+IN: browser = webdriver.Firefox()
+IN: type(browser)
+OUT: <class 'selenium.webdriver.firefox.webdriver.WebDriver'>
+IN: browser.get('https://inventwithpython.com')
+
+IN: from selenium import webdriver
+IN: browser = webdriver.Firefox()
+IN: browser.get('https://inventwithpython.com')
+IN: linkElem = browser.find_element_by_link_text('Read Online for Free')
+IN: type(linkElem)
+OUT: ass 'selenium.webdriver.remote.webelement.FirefoxWebElement'>
+IN: linkElem.click() # follows the "Read Online for Free" link
+
+IN: browser.get('https://login.metafilter.com')
+IN: userElem = browser.find_element_by_id('user_name)
+IN: userElem.send_keys('your_real_username_here')
+
+IN: passwordElem = browser.find_element_by_id('user_pass')
+IN: passwordElem.send_keys('your_real_password_here')
+IN: passwordElem.submit()
+
+IN: from selenium import webdriver
+IN: from selenium.webdriver.common.keys import Keys
+IN: browser = webdriver.Firefox()
+IN: browser.get('https://nostarch.com')
+IN: htmlElem = browser.find_element_by_tag_name('html')
+IN: htmlElem.send_keys(Keys.END)
+IN: htmlElem.send_keys(Keys.HOME)
