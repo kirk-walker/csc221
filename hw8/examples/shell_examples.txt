@@ -1,0 +1,163 @@
+In [1]: import pyautogui
+
+In [2]: wh = pyautogui.size()
+
+In [3]: wh
+Out[3]: Size(width=1920, height=1080)
+
+In [4]: wh[0]
+Out[4]: 1920
+
+In [5]: wh.width
+Out[5]: 1920
+In [9]: for i in range(10):
+   ...:     pyautogui.moveTo(100, 100, duration=.25)
+   ...:     pyautogui.moveTo(200, 100, duration=.25)
+   ...:     pyautogui.moveTo(200, 200, duration=.25)
+   ...:     pyautogui.moveTo(100, 200, duration=.25)
+
+In [10]: for i in range(10):
+    ...:      pyautogui.move(100, 0, duration=0.25)
+    ...:      pyautogui.move(0, 100, duration=0.25)
+    ...:      pyautogui.move(-100, 0, duration=0.25)
+    ...:      pyautogui.move(0, -100, duration=0.25)
+
+In [11]: pyautogui.position()
+Out[11]: Point(x=1512, y=360)
+
+In [12]: pyautogui.position()
+Out[12]: Point(x=1298, y=680)
+
+In [13]: p = pyautogui.position()
+
+In [14]: p
+Out[14]: Point(x=1263, y=508)
+
+In [15]: p[0]
+Out[15]: 1263
+
+In [16]: p.x
+
+In [17]: pyautogui.click(10, 5)
+
+In [18]: pyautogui.scroll(200)
+
+In [19]: im = pyautogui.screenshot()
+
+In [24]: pyautogui.pixel(0, 0)
+Out[24]: (231, 234, 237)
+
+In [25]: pyautogui.pixel(50, 200)
+Out[25]: (255, 254, 238)
+
+In [26]: pyautogui.pixel(50, 200)
+Out[26]: (181, 137, 0)
+
+In [27]: pyautogui.pixelMatchesColor(50, 200, (130, 135, 144))
+Out[27]: False
+
+In [28]: pyautogui.pixelMatchesColor(50, 200,(181, 137, 0))
+Out[28]: True
+
+In [36]: b = pyautogui.locateOnScreen('box.png')
+
+In [37]: b
+Out[37]: Box(left=1711, top=128, width=187, height=34)
+
+In [38]: b[0]
+Out[38]: 1711
+
+In [39]: b.left
+Out[39]: 1711
+
+In [3]: pyautogui.click('box.png')
+
+In [4]: fw = pyautogui.getActiveWindow()
+
+In [5]: fw
+Out[5]: Win32Window(hWnd=1181342)
+
+In [6]: str(fw)
+Out[6]: '<Win32Window left="7", top="3", width="930", height="538", title="IPyth
+on: C:hw8/examples">'
+
+In [7]: fw.title
+Out[7]: 'IPython: C:hw8/examples'
+
+In [8]: fw.size
+Out[8]: Size(width=930, height=538)
+
+In [9]: fw.left, fw.top, fw.right, fw.bottom
+Out[9]: (7, 3, 937, 541)
+
+In [10]: fw.topleft
+Out[10]: Point(x=7, y=3)
+
+In [11]: fw.area
+Out[11]: 500340
+
+In [12]: pyautogui.click(fw.left + 10, fw.top +20)
+
+In [13]: fw = pyautogui.getActiveWindow()
+
+In [14]: fw.width
+Out[14]: 930
+
+In [15]: fw.topleft
+Out[15]: Point(x=7, y=3)
+
+In [16]: fw.width = 1000
+
+In [17]: fw.topleft = (800, 400)
+
+In [18]: fw.isMaximized
+Out[18]: False
+
+In [19]: fw.isActive
+Out[19]: True
+
+In [20]: fw.maximize()
+
+In [21]: fw.isMaximized
+Out[21]: True
+
+In [22]: fw.restore()
+
+In [23]:
+
+In [23]: fw.minimize()
+
+In [24]: import time
+
+In [25]: time.sleep(5);fw.active()
+
+In [26]: pyautogui.click(100, 200); pyautogui.write('Hello, world!')
+
+In [28]:  pyautogui.write(['a', 'b', 'left', 'left', 'X', 'Y'])
+
+In [29]: pyautogui.keyDown('shift');pyautogui.press('4');pyautogui.keyUp('shift'
+    ...: )
+
+In [30]: pyautogui.sleep(3)
+
+In [31]: pyautogui.countdown(10)
+10 9 8 7 6 5 4 3 2 1
+
+In [32]: print('Starting in' , end='');pyautogui.countdown(3)
+Starting in3 2 1
+
+In [33]: pyautogui.alert('This is a message.', 'Important')
+Out[33]: 'OK'
+
+In [34]: pyautogui.confirm('Do you want to continue?')
+Out[34]: 'OK'
+
+In [35]: pyautogui.confirm('Do you want to continue?')
+Out[35]: 'Cancel'
+
+In [36]: pyautogui.prompt("What is your cat's name?")
+Out[36]: 'Ellie and Ranger'
+
+In [37]: pyautogui.password('What is the password?')
+Out[37]: 'password'
+
