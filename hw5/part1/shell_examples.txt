@@ -1,0 +1,332 @@
+In [1]: import re
+
+In [2]: phoneNumRegex = re.compile(r'\d\d\d-\d\d\d-\d\d\d\d')
+
+In [3]: mo = phoneNumRegex.search('My number is 415-555-4242.')
+
+In [4]: print('Phone number found: '+ mo.group())
+Phone number found: 415-555-4242
+
+In [9]: phoneNumRegex = re.compile(r'(\d\d\d)-(\d\d\d-\d\d\d\d)')
+
+In [10]: mo = phoneNumRegex.search('My number is 415-555-4242.')
+
+In [11]: mo.group(1)
+Out[11]: '415'
+
+In [12]: mo.group(2)
+Out[12]: '555-4242'
+
+In [13]: mo.group(0)
+Out[13]: '415-555-4242'
+
+In [14]: mo.group()
+Out[14]: '415-555-4242'
+
+In [15]: mo.groups()
+Out[15]: ('415', '555-4242')
+
+In [16]: areaCode, mainNumber = mo.groups()
+
+In [17]: print(areaCode)
+415
+
+In [18]: print(mainNumber)
+555-4242
+
+In [20]: phoneNumRegex = re.compile(r'(\(\d\d\d\)) (\d\d\d-\d\d\d\d)')
+
+In [21]: mo = phoneNumRegex.search('My phone number is (415) 555-4242.')
+
+In [22]: mo.group(1)
+Out[22]: '(415)'
+
+In [23]: mo.group(2)
+Out[23]: '555-4242'
+
+In [24]: heroRegex = re.compile(r'Batman|Tina Fey')
+
+In [25]: mo1 = heroRegex.search('Batman and Tina Fey')
+
+In [26]: mo1.group()
+Out[26]: 'Batman'
+
+In [27]: mo2 = heroRegex.search('Tina Fey and Batman')
+
+In [28]: mo2.group()
+Out[28]: 'Tina Fey'
+
+In [29]: batRegex = re.compile(r'Bat(man|mobile|copter|bat)')
+
+In [31]: mo = batRegex.search('Batmobile lost a wheel')
+
+In [32]: mo.group()
+Out[32]: 'Batmobile'
+
+In [33]: mo.group(1)
+Out[33]: 'mobile'
+
+In [34]: batRegex = re.compile(r'Bat(wo)?man')
+
+In [35]: mo1 = batRegex.search('The Adventures of Batman')
+
+In [36]: mo1.group()
+Out[36]: 'Batman'
+
+In [37]: mo2 = batRegex.search('The Adventures of Batwoman')
+
+In [38]: mo2.group()
+Out[38]: 'Batwoman'
+
+In [39]: phoneRegex = re.compile(r'(\d\d\d-)?\d\d\d-\d\d\d\d')
+
+In [40]: mo1 = phoneRegex.search('My number is 415-555-4242')
+
+In [41]: mo1.group()
+Out[41]: '415-555-4242'
+
+In [42]: mo2 = phoneRegex.search('My number is 555-4242')
+
+In [43]: mo2.group()
+Out[43]: '555-4242'
+
+In [45]: mo1 = batRegex.search('The Adventures of Batman')
+
+In [46]: mo1.group()
+Out[46]: 'Batman'
+
+In [47]: mo2 = batRegex.search('The Adventures of Batwoman')
+
+In [48]: mo2.group()
+Out[48]: 'Batwoman'
+
+In [49]: mo3 = batRegex.search('The Adventures of Batwowowowoman')
+
+In [50]: mo3.group()
+Out[50]: 'Batwowowowoman'
+
+In [51]: batRegex = re.compile(r'Bat(wo)+man')
+
+In [54]: mo1 = batRegex.search('The Adventures of Batwoman')
+
+In [55]: mo1.group()
+Out[55]: 'Batwoman'
+
+In [56]: mo2 = batRegex.search('The Adventures of Batwowowowoman')
+
+In [57]: mo2.group()
+Out[57]: 'Batwowowowoman'
+
+In [58]: mo3 = batRegex.search('The Adventures of Batman')
+
+In [59]: mo3 == None
+Out[59]: True
+
+In [60]: haRegex = re.compile(r'(Ha){3}')
+
+In [61]: mo1 = haRegex.search('HaHaHa')
+
+In [62]: mo1.group()
+Out[62]: 'HaHaHa'
+
+In [63]: mo2 = haRegex.search('Ha')
+
+In [64]: mo2 == None
+Out[64]: True
+
+In [60]: haRegex = re.compile(r'(Ha){3}')
+
+In [61]: mo1 = haRegex.search('HaHaHa')
+
+In [62]: mo1.group()
+Out[62]: 'HaHaHa'
+
+In [63]: mo2 = haRegex.search('Ha')
+
+In [64]: mo2 == None
+Out[64]: True
+
+In [65]: greedyHaRegex = re.compile(r'(Ha){3,5}')
+
+In [66]: mo1 = greedyHaRegex.search('HaHaHaHaHa')
+
+In [67]: mo1.group()
+Out[67]: 'HaHaHaHaHa'
+
+In [68]: nongreedyHaRegex = re.compile(r'(Ha){3,5}?')
+
+In [69]: mo2 = nongreedyHaRegex.search('HaHaHaHaHa')
+
+In [70]: mo2.group()
+Out[70]: 'HaHaHa'
+
+In [71]: phoneNumRegex = re.compile(r'\d\d\d-\d\d\d-\d\d\d\d')
+
+In [72]: mo = phoneNumRegex.search('Cell: 415-555-9999 Work: 212-555-0000')
+
+In [73]: mo.group()
+Out[73]: '415-555-9999'
+
+In [74]: phoneNumRegex.findall('Cell: 415-555-9999 Work: 212-555-0000')
+Out[74]: ['415-555-9999', '212-555-0000']
+
+In [75]: phoneNumRegex = re.compile(r'(\d\d\d)-(\d\d\d)-(\d\d\d\d)')
+
+In [76]: phoneNumRegex.findall('Cell: 415-555-9999 Work: 212-555-0000')
+Out[76]: [('415', '555', '9999'), ('212', '555', '0000')]
+
+In [77]: xmasRegex = re.compile(r'\d+\s\w+')
+
+In [79]: xmasRegex.findall('12 drummers, 11 pipers, 10 lords, 9 ladies, 8 maids, 7 sw
+    ...: ans, 6 geese, 5 rings, 4 birds, 3 hens, 2 doves, 1 partridge')
+Out[79]:
+['12 drummers',
+ '11 pipers',
+ '10 lords',
+ '9 ladies',
+ '8 maids',
+ '7 swans',
+ '6 geese',
+ '5 rings',
+ '4 birds',
+ '3 hens',
+ '2 doves',
+ '1 partridge']
+
+In [80]: vowelRegex = re.compile(r'[aeiouAEIOU]')
+
+In [81]:  vowelRegex.findall('RoboCop eats baby food. BABY FOOD.')
+Out[81]: ['o', 'o', 'o', 'e', 'a', 'a', 'o', 'o', 'A', 'O', 'O']
+
+In [82]: consonantRegex = re.compile(r'[^aeiouAEIOU]')
+
+In [83]: consonantRegex.findall('RoboCop eats baby food. BABY FOOD.')
+Out[83]:
+['R',
+ 'b',
+ 'C',
+ 'p',
+ ' ',
+ 't',
+ 's',
+ ' ',
+ 'b',
+ 'b',
+ 'y',
+ ' ',
+ 'f',
+ 'd',
+ '.',
+ ' ',
+ 'B',
+ 'B',
+ 'Y',
+ ' ',
+ 'F',
+ 'D',
+ '.']
+
+In [84]: beginsWithHello = re.compile(r'^Hello')
+
+In [85]: beginsWithHello.search('Hello, world')
+Out[85]: <re.Match object; span=(0, 5), match='Hello'>
+
+In [86]: beginsWithHello.search('He said hello.') == None
+Out[86]: True
+
+In [87]: endsWithNumber = re.compile(r'\d$')
+
+In [88]: endsWithNumber.search('Your number is 42')
+Out[88]: <re.Match object; span=(16, 17), match='2'>
+
+In [89]: endsWithNumber.search('Your number is forty two.') == None
+Out[89]: True
+
+In [90]: wholeStringIsNum = re.compile(r'^\d+$')
+
+In [91]: wholeStringIsNum.search('1234567890')
+Out[91]: <re.Match object; span=(0, 10), match='1234567890'>
+
+In [92]: wholeStringIsNum.search('12345xyz67890') == None
+Out[92]: True
+
+In [93]: wholeStringIsNum.search('12  34567890') == None
+Out[93]: True
+
+In [94]: atRegex = re.compile(r'.at')
+
+In [95]: atRegex.findall('The cat in the hat sat on the flat mat.')
+Out[95]: ['cat', 'hat', 'sat', 'lat', 'mat']
+
+In [96]: nameRegex = re.compile(r'First Name: (.*) Last Name: (.*)')
+
+In [97]: mo = nameRegex.search('First Name: Al Last Name: Sweigart')
+
+In [98]: mo.group(1)
+Out[98]: 'Al'
+
+In [99]: mo.group(2)
+Out[99]: 'Sweigart'
+
+In [100]: nongreedyRegex = re.compile(r'<.*?>')
+
+In [101]: mo = nongreedyRegex.search('<To serve man> for dinner.>')
+
+In [102]: mo.group()
+Out[102]: '<To serve man>'
+
+In [103]: greedyRegex = re.compile(r'<.*>')
+
+In [104]: mo = greedyRegex.search('<To serve man> for dinner.>')
+
+In [105]: mo.group()
+Out[105]: '<To serve man> for dinner.>'
+
+In [106]: noNewlineRegex = re.compile('.*')
+
+In [107]: noNewlineRegex.search('Serve the public trust.\nProtect the innocent.\nUpho
+     ...: ld the law.').group()
+Out[107]: 'Serve the public trust.'
+
+In [108]: newlineRegex = re.compile('.*', re.DOTALL)
+
+In [110]: newlineRegex.search('Serve the public trust.\nProtect the innocent.\nUphold
+     ...:  the law.').group()
+Out[110]: 'Serve the public trust.\nProtect the innocent.\nUphold the law.'
+
+In [111]: regex1 = re.compile('RoboCop')
+
+In [112]: regex2 = re.compile('ROBOCOP')
+
+In [113]: regex3 = re.compile('robOcop')
+
+In [114]: regex4 = re.compile('RobocOp')
+
+In [115]: robocop = re.compile(r'robocop', re.I)
+
+In [116]: robocop.search('RoboCop is part man, part machine, all cop.').group()
+Out[116]: 'RoboCop'
+
+In [117]: robocop.search('ROBOCOP protects the innocent.').group()
+Out[117]: 'ROBOCOP'
+
+In [118]: robocop.search('Al, why does your programming book talk about robocop so mu
+     ...: ch?').group()
+Out[118]: 'robocop'
+
+In [119]: namesRegex = re.compile(r'Agent \w+')
+
+In [120]: namesRegex.sub('CENSORED', 'Agent Alice gave the secret documents to Agent
+     ...: Bob.')
+Out[120]: 'CENSORED gave the secret documents to CENSORED.'
+
+In [121]: agentNamesRegex = re.compile(r'Agent (\w)\w*')
+
+In [123]: agentNamesRegex.sub(r'\1****', 'Agent Alice told Agent Carol that Agent Eve
+     ...:  knew Agent Bob was a double agent.')
+Out[123]: 'A**** told C**** that E**** knew B**** was a double agent.'
+
+In [124]: someRegexValue = re.compile('foo', re.IGNORECASE | re.DOTALL)
+
+In [126]: someRegexValue = re.compile('foo', re.IGNORECASE | re.DOTALL | re.VERBOSE)
+
