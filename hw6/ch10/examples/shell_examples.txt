@@ -1,0 +1,70 @@
+In: import shutil, os
+In: from pathlib import Path
+In: p = Path.home()
+In: shutil.copy(p / 'spam.txt', p / 'some_folder')
+Out: 'C:\\Users\\Al\\some_folder\\spam.txt'
+In: shutil.copy(p / 'eggs.txt', p / 'some_folder/eggs2.txt')
+Out: WindowsPath('C:/Users/Al/some_folder/eggs2.txt')
+
+In: shutil.copytree(p / 'spam', p / 'spam_backup')
+Out: WindowsPath('C:/Users/Al/spam_backup')
+
+In: import shutil
+In: shutil.move('C:\\bacon.txt', 'C:\\eggs')
+Out: 'C:\\eggs\\bacon.txt'
+
+In: shutil.move('C:\\bacon.txt', 'C:\\eggs\\new_bacon.txt')
+Out: 'C:\\eggs\\new_bacon.txt'
+
+In: shutil.move('C:\\bacon.txt', 'C:\\eggs')
+Out: 'C:\\eggs'
+
+In: shutil.move('spam.txt', 'c:\\does_not_exist\\eggs\\ham')
+Out: Traceback (most recent call last):
+  --snip--
+FileNotFoundError: [Errno 2] No such file or directory: 'c:\\does_not_exist\\
+eggs\\ham'
+
+In: import send2trash
+In: baconFile = open('bacon.txt', 'a')   # creates the file
+In: baconFile.write('Bacon is not a vegetable.')
+Out: 25
+In: baconFile.close()
+In: send2trash.send2trash('bacon.txt')
+
+In: import zipfile, os
+
+In: from pathlib import Path
+In: p = Path.home()
+In: exampleZip = zipfile.ZipFile(p / 'example.zip')
+In: exampleZip.namelist()
+Out: ['spam.txt', 'cats/', 'cats/catnames.txt', 'cats/zophie.jpg']
+In: spamInfo = exampleZip.getinfo('spam.txt')
+In: spamInfo.file_size
+Out:13908
+In: spamInfo.compress_size
+Out: 3828
+In: f'Compressed file is {round(spamInfo.file_size / spamInfo
+   .compress_size, 2)}x smaller!'
+   )
+Out: 'Compressed file is 3.63x smaller!'
+In: exampleZip.close()
+
+In: import zipfile, os
+In: from pathlib import Path
+In: p = Path.home()
+In: exampleZip = zipfile.ZipFile(p / 'example.zip')
+In: exampleZip.extractall()
+In: exampleZip.close()
+
+In: exampleZip.extract('spam.txt')
+Out: 'C:\\spam.txt'
+In: exampleZip.extract('spam.txt', 'C:\\some\\new\\folders')
+Out: 'C:\\some\\new\\folders\\spam.txt'
+In: exampleZip.close()
+
+In: import zipfile
+In: newZip = zipfile.ZipFile('new.zip', 'w')
+In: newZip.write('spam.txt', compress_type=zipfile.ZIP_DEFLATED)
+In: newZip.close()
+
